@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block main %}
+    <!--This is the page to run when we have errors-->
+    {% for error in errors %}
+        {% if ".html" in error %}
+            {% include error %}
+        {% else %}
+            <p>{{ error }}</p>
+        {% endif %}
+    {% endfor %}
+    <p>
+        <script>
+          document.write('<a href="' + document.referrer + '">Go Back</a>');
+        </script>
+    </p>
+{% endblock %}

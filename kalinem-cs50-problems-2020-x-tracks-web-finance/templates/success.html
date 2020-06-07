@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block main %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+    <p><a href="/">Return home</a></p>
+{% endblock %}

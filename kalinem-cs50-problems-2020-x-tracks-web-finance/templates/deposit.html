@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Deposit 💳
+{% endblock %}
+
+{% block main %}
+    <h1>Deposit</h1>
+    <form action="/deposit" method="post">
+        <!--Enter valid credit card info-->
+        <!--Don't put your real info-->
+        <div class="form-group">
+            <a href="#" class="non-link" data-toggle="tooltip" data-placement="right" data-html="true" title="<em>Do not put actual credit card information</em>">
+                <label for="card">Card number:</label><br>
+            </a>
+            <input autocomplete="off" name="card" type="text" class="form-control" maxlength="16" placeholder="4111-1111-1111-1111">
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount:</label><br>
+            <input autocomplete="off" name="amount" class="form-control" min="0" type="text">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Deposit 💳</button>
+    </form>
+
+    <script>
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+{% endblock %}

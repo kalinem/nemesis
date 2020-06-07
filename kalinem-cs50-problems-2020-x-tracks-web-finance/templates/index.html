@@ -1,0 +1,130 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+    <div class="greeting">
+        <h1>{{ message[0] }}</h1>
+        <h5>{{ message[1] }}</h5>
+    </div>
+    <table class="table table-striped cye-lm-tag">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Current Price</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        {% for row in rows %}
+            <tr>
+                <td>
+                    <span>{{ row["symbol"] }}</span>
+                    <a href="#" data-toggle="modal" data-target="#buy" title="Buy" onclick="custom(this)">&#8679;</a>
+                    <a href="#" data-toggle="modal" data-target="#sell" title="Sell" onclick="custom(this)">&#8681;</a>
+                </td>
+                <td>{{ row["name"] }}</td>
+                <td>{{ row["shares"] }}</td>
+                <td>{{ row["price"] }}</td>
+                <td>{{ row["total"] }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td>CASH</td>
+            <td colspan="3">Account Balance</td>
+            <td>{{ cash }}</td>
+        </tr>
+        <tfoot>
+            <tr>
+                <td colspan="4">TOTAL</td>
+                <td>{{ total }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- Buy modal -->
+    <div class="modal" id="buy" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Buy more shares of <span class="stock-name"></span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/buy" method="post">
+                <div class="form-group">
+                    <label for="shares">Buy </label>
+                    <input min="1" name="shares" class="form-control" placeholder="Shares" type="number">
+                    <label for="symbol"> of </label>
+                    <select name="symbol" class="form-control">
+                        <option class="stock-symbol"></option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" type="submit">Buy 💸</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sell modal -->
+    <div class="modal" id="sell" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sell shares of <span class="stock-name"></span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/sell" method="post">
+                <div class="form-group">
+                    <label for="shares">Sell </label>
+                    <input min="1" name="shares" class="form-control" placeholder="Shares" type="number">
+                    <label for="symbol"> of </label>
+                    <select name="symbol" class="form-control">
+                        <option class="stock-symbol"></option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" type="submit">Sell 💲</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        // Makes the buy and sell modals custom based on what stock was clicked
+        function custom(symbol) {
+            // Get the name and the symbol of the stock that was clicked
+            let stockSymbol = symbol.parentNode.children[0].textContent;
+            let stockName = symbol.parentNode.parentNode.children[1].textContent;
+
+            // Set the modal and the value of the form
+            let x = document.getElementsByClassName("stock-name");
+            for (let i = 0; i < x.length; i++) {
+                x[i].textContent = stockName + " (" + stockSymbol + ")";
+            }
+            let y = document.getElementsByClassName("stock-symbol");
+            for (let i = 0; i < y.length; i++) {
+                y[i].textContent = stockSymbol;
+                y[i].value = stockSymbol;
+            }
+        }
+    </script>
+{% endblock %}

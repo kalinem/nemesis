@@ -1,0 +1,8 @@
+So for index, we need the stocks that the user owns, the number of shares of those stocks, the current price of those stocks,
+the total value of "each holding" (shares * price). Also current cash balance and total
+
+https://www.techonthenet.com/sqlite/tables/alter_table.php#:~:text=Modify%20column%20in%20table,data%20into%20the%20new%20table.
+https://stackoverflow.com/questions/8814472/how-to-make-an-html-back-link
+
+difference between two timestamps savior:
+https://stackoverflow.com/questions/17708167/difference-in-seconds-between-timestamps-in-sqlite3

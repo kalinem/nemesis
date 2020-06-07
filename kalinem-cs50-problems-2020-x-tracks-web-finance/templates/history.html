@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History 🔎
+{% endblock %}
+
+{% block main %}
+    <div class="greeting">
+        <h1>{{ message[0] }}</h1>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>Transacted</th>
+            </tr>
+        </thead>
+        {% for row in rows %}
+            <tr>
+                <td>{{ row["symbol"] }}</td>
+                <td>
+                    {% if row["shares"] %}
+                        {{ row["shares"] }}
+                    {% endif %}
+                </td>
+                <td>{{ row["price"] }}</td>
+                <td>{{ row["time"] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
